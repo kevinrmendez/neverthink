@@ -30,11 +30,13 @@ import {
 import YouTube from 'react-native-youtube';
 // import {YouTubeStandaloneAndroid} from 'react-native-youtube';
 
+import ChannelList from './ChannelList';
 import youtubeApikey from './apikey.js';
+import data from './data.js';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
-    // Don't call this.setState() here!
     this.state = {
       name: 'Channel Name 1',
       playListId: ['hY7m5jjJ9mM', 'KVZ-P-ZI6W4', 'Tl0DMTlwLw4'],
@@ -56,7 +58,6 @@ class App extends React.Component {
     // this.setState({myState: 'Florida'});
   }
   playnNextVideo() {
-    // this.setState = {videoId: 'Tl0DMTlwLw4'};
     this.child.current.nextVideo();
     // this.child.current.seekTo(20);
   }
@@ -75,18 +76,20 @@ class App extends React.Component {
                 <Text style={styles.footer}>Engine: Hermes</Text>
               </View>
             )}
+
+            <Image
+              style={{height: 80}}
+              source={{
+                uri:
+                  'https://about.neverthink.tv/assets/img/neverthink-share.png',
+              }}
+            />
             <View style={styles.body}>
-              <View style={styles.header}>
-                <Text style={styles.headerTitle}>{this.state.name}</Text>
-                <Image
-                  style={{width: 80, height: 80}}
-                  source={{
-                    uri: this.state.icon,
-                  }}
-                />
-              </View>
               <YouTube
                 ref={this.child}
+                showinfo={false}
+                modestbranding={true}
+                // controls={0}
                 videoIds={this.state.playListId} // The YouTube video ID
                 play={true} // control playback of video with true/false
                 fullscreen={false} // control whether the video should play in fullscreen or inline
@@ -100,20 +103,33 @@ class App extends React.Component {
                 }}
                 // onChangeQuality={e => this.setState({quality: e.quality})}
                 // onError={e => this.setState({error: e.error})}
-                style={{alignSelf: 'stretch', height: 500}}
+                style={{alignSelf: 'stretch', height: 300}}
               />
-              <Button title="next" onPress={() => this.playnNextVideo()} />
+              <Button
+                color="#FF00B4"
+                title="next video"
+                onPress={() => this.playnNextVideo()}
+              />
+              <View style={styles.header}>
+                <Text style={styles.headerTitle}>{this.state.name}</Text>
+                <Image
+                  style={{width: 40, height: 40}}
+                  source={{
+                    uri: this.state.icon,
+                  }}
+                />
+              </View>
 
               <View style={styles.sectionContainer}>
                 <Text style={styles.sectionTitle}>Channels</Text>
               </View>
               <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>Learn Mor dsfe</Text>
-                <Text style={styles.sectionDescription}>
+                {/* <Text style={styles.sectionDescription}>
                   Read the docs to discover what to sdf do next: sdf
-                </Text>
+                </Text> */}
               </View>
-              <LearnMoreLinks />
+              {/* <LearnMoreLinks /> */}
+              <ChannelList channels={data} />
             </View>
           </ScrollView>
         </SafeAreaView>
