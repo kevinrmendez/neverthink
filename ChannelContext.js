@@ -3,7 +3,7 @@ import {createContext, useContext} from 'react';
 //context used for passing the state of the app
 const ChannelContext = createContext({
   index: 0,
-  // video: 'hY7m5jjJ9mM',
+  video: 'hY7m5jjJ9mM',
   name: 'Channel Name 1',
   playList: ['hY7m5jjJ9mM', 'KVZ-P-ZI6W4', 'Tl0DMTlwLw4'],
   icon:

@@ -49,7 +49,7 @@ export default class VideoPlayer extends Component {
           showinfo={false}
           modestbranding={true}
           // controls={0}
-          videoId={this.props.playList[this.state.index]}
+          videoId={this.props.playList[this.state.index]['id']}
           // videoIds={this.state.playListId} // The YouTube video ID
           play={true} // control playback of video with true/false
           fullscreen={false} // control whether the video should play in fullscreen or inline
@@ -61,7 +61,11 @@ export default class VideoPlayer extends Component {
 
             this.setState({status: e.state});
             if (e.state === 'ended') {
+              this.props.playList[this.state.index]['watched'] = true;
               this.playnNextVideo();
+
+              console.log('VIDEO WATCHED');
+              console.log(this.props.playList[this.state.index]['watched']);
             }
           }}
           // onChangeQuality={e => this.setState({quality: e.quality})}

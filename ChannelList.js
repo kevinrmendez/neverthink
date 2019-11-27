@@ -21,7 +21,14 @@ export default class ChannelList extends Component {
       <View key={item.id}>
         <ChannelContext.Consumer>
           {({index, video, name, playList, icon, changeChannel}) => (
-            <TouchableHighlight onPress={() => changeChannel(item)}>
+            <TouchableHighlight
+              onPress={() => {
+                //order videos
+                item.playlist.sort((a, b) => {
+                  return a === b ? 0 : a ? -1 : 1;
+                });
+                changeChannel(item);
+              }}>
               <>
                 <View style={styles.itemRow}>
                   <Image

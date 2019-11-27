@@ -40,6 +40,14 @@ import data from './data.js';
 
 // const store = createStore(channelReducer);
 
+var dataChanged = data.map(item => ({
+  id: item.id,
+  name: item.name,
+  icon: item.icon,
+  playlist: item.playlist.map(x => ({id: x, watched: false})),
+}));
+console.log(dataChanged.map(i => i.playlist.map(j => j.watched)));
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -57,18 +65,22 @@ class App extends Component {
       index: 0,
       // video: 'hY7m5jjJ9mM',
       screen: Dimensions.get('window'),
-      name: 'Channel Name 1',
-      playList: ['hY7m5jjJ9mM', 'KVZ-P-ZI6W4', 'Tl0DMTlwLw4'],
-      icon:
-        'https://cdn0.iconfinder.com/data/icons/emoticons-round-smileys/137/Emoticons-01-512.png',
+      // name: 'Channel Name 1',
+      name: dataChanged[0].name,
+      // playList: ['hY7m5jjJ9mM', 'KVZ-P-ZI6W4', 'Tl0DMTlwLw4'],
+      playList: dataChanged[0].playlist,
+      // playList: dataChanged[0]['playList'],
+      icon: dataChanged[0].icon,
+      // icon:
+      //   'https://cdn0.iconfinder.com/data/icons/emoticons-round-smileys/137/Emoticons-01-512.png',
       changeChannel: this.changeChannel,
     };
-    console.log(this.state.screen);
+    // console.log(this.state.screen);
   }
   onLayout(e) {
     const {width, height} = Dimensions.get('window');
-    console.log(width, height);
-    console.log(this.getStyle());
+    // console.log(width, height);
+    // console.log(this.getStyle());
     this.setState({screen: Dimensions.get('window')});
   }
 
@@ -147,7 +159,8 @@ class App extends Component {
                 </View>
                 <View style={this.getStyle().channelList}>
                   <Text style={this.getStyle().channelListTitle}>Channels</Text>
-                  <ChannelList channels={data} />
+                  {/* <ChannelList channels={data} /> */}
+                  <ChannelList channels={dataChanged} />
                 </View>
               </View>
 
