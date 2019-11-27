@@ -16,6 +16,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 export default class VideoPlayer extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       index: 0,
       //   video: 'hY7m5jjJ9mM',
@@ -23,6 +24,7 @@ export default class VideoPlayer extends Component {
     this.playnNextVideo = this.playnNextVideo.bind(this);
     this.child = React.createRef();
   }
+
   playnNextVideo() {
     var playListIndex = this.state.index;
     var playList = this.props.playList;
