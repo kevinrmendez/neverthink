@@ -15,9 +15,12 @@ import {
   ScrollView,
   View,
   Text,
+  Alert,
   StatusBar,
   Button,
   Image,
+  TouchableWithoutFeedback,
+  TouchableHighlight,
 } from 'react-native';
 
 import {
@@ -27,40 +30,32 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import YouTube from 'react-native-youtube';
-// import {YouTubeStandaloneAndroid} from 'react-native-youtube';
+
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
+import channelReducer from './channelReducer.js';
 
 import ChannelList from './ChannelList';
-import youtubeApikey from './apikey.js';
+import VideoPlayer from './VideoPlayer';
 import data from './data.js';
+
+const store = createStore(channelReducer);
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      index: 0,
+      video: 'hY7m5jjJ9mM',
       name: 'Channel Name 1',
       playListId: ['hY7m5jjJ9mM', 'KVZ-P-ZI6W4', 'Tl0DMTlwLw4'],
       icon:
         'https://cdn0.iconfinder.com/data/icons/emoticons-round-smileys/137/Emoticons-01-512.png',
     };
-    this.playnNextVideo = this.playnNextVideo.bind(this);
-    this.child = React.createRef();
   }
-  componentDidMount() {
-    // YouTubeStandaloneAndroid.playVideos({
-    //   apiKey: 'AIzaSyBGzR9hDllXVRtDnBVpEmhQsPTw1jc7WbY', // Your YouTube Developer API Key
-    //   videoIds: ['hY7m5jjJ9mM', 'KVZ-P-ZI6W4', 'Tl0DMTlwLw4'], // YouTube video ID
-    //   autoplay: false, // Autoplay the video
-    //   startTime: 120, // Starting point of video (in seconds)
-    // })
-    //   .then(() => console.log('Standalone Player Exited'))
-    //   .catch(errorMessage => console.error(errorMessage));
-    // this.setState({myState: 'Florida'});
-  }
-  playnNextVideo() {
-    this.child.current.nextVideo();
-    // this.child.current.seekTo(20);
-  }
+  // componentDidMount() {
+
+  // }
 
   render() {
     return (
@@ -76,35 +71,21 @@ class App extends React.Component {
                 <Text style={styles.footer}>Engine: Hermes</Text>
               </View>
             )}
-
-            <Image
-              style={{height: 80}}
-              source={{
-                uri:
-                  'https://about.neverthink.tv/assets/img/neverthink-share.png',
-              }}
-            />
-            <View style={styles.body}>
-              <YouTube
-                ref={this.child}
-                showinfo={false}
-                modestbranding={true}
-                // controls={0}
-                videoIds={this.state.playListId} // The YouTube video ID
-                play={true} // control playback of video with true/false
-                fullscreen={false} // control whether the video should play in fullscreen or inline
-                loop={true} // control whether the video should loop when ended
-                apiKey={youtubeApikey}
-                onReady={e => this.setState({isReady: true})}
-                onChangeState={e => {
-                  console.log(e.state);
-
-                  this.setState({status: e.state});
+            <TouchableWithoutFeedback onPress={() => Alert.alert('Pressed!')}>
+              <Image
+                style={{height: 80}}
+                source={{
+                  uri:
+                    'https://about.neverthink.tv/assets/img/neverthink-share.png',
                 }}
-                // onChangeQuality={e => this.setState({quality: e.quality})}
-                // onError={e => this.setState({error: e.error})}
-                style={{alignSelf: 'stretch', height: 300}}
               />
+            </TouchableWithoutFeedback>
+
+            <View style={styles.body}>
+              <VideoPlayer
+                playList={['hY7m5jjJ9mM', 'KVZ-P-ZI6W4', 'Tl0DMTlwLw4']}
+              />
+
               <Button
                 color="#FF00B4"
                 title="next video"
@@ -119,7 +100,6 @@ class App extends React.Component {
                   }}
                 />
               </View>
-
               <View style={styles.sectionContainer}>
                 <Text style={styles.sectionTitle}>Channels</Text>
               </View>
