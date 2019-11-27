@@ -7,7 +7,7 @@
  */
 
 // import React from 'react';
-import React, {useState} from 'react';
+import React, {useState, Component} from 'react';
 
 import {
   SafeAreaView,
@@ -18,6 +18,7 @@ import {
   Alert,
   StatusBar,
   Button,
+  Dimensions,
   Image,
   TouchableWithoutFeedback,
   TouchableHighlight,
@@ -31,92 +32,172 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import {Provider} from 'react-redux';
-import {createStore} from 'redux';
-import channelReducer from './channelReducer.js';
+import ChannelContext from './ChannelContext';
 
 import ChannelList from './ChannelList';
 import VideoPlayer from './VideoPlayer';
 import data from './data.js';
 
-const store = createStore(channelReducer);
+// const store = createStore(channelReducer);
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
+    this.changeChannel = channel => {
+      console.log(channel.playlist);
+      this.setState({
+        index: channel.index,
+        // video: channel.video
+        name: channel.name,
+        playList: channel.playlist,
+        icon: channel.icon,
+      });
+    };
     this.state = {
       index: 0,
-      video: 'hY7m5jjJ9mM',
+      // video: 'hY7m5jjJ9mM',
+      screen: Dimensions.get('window'),
       name: 'Channel Name 1',
-      playListId: ['hY7m5jjJ9mM', 'KVZ-P-ZI6W4', 'Tl0DMTlwLw4'],
+      playList: ['hY7m5jjJ9mM', 'KVZ-P-ZI6W4', 'Tl0DMTlwLw4'],
       icon:
         'https://cdn0.iconfinder.com/data/icons/emoticons-round-smileys/137/Emoticons-01-512.png',
+      changeChannel: this.changeChannel,
     };
+    console.log(this.state.screen);
   }
-  // componentDidMount() {
+  onLayout(e) {
+    const {width, height} = Dimensions.get('window');
+    console.log(width, height);
+    console.log(this.getStyle());
+    this.setState({screen: Dimensions.get('window')});
+  }
 
-  // }
+  getOrientation() {
+    if (this.state.screen.width > this.state.screen.height) {
+      return 'LANDSCAPE';
+    } else {
+      return 'PORTRAIT';
+    }
+  }
+  getStyle() {
+    if (this.getOrientation() === 'LANDSCAPE') {
+      return landscapeStyles;
+    } else {
+      return portraitStyles;
+    }
+  }
 
   render() {
     return (
-      <>
-        <StatusBar barStyle="dark-content" />
-        <SafeAreaView>
-          <ScrollView
-            contentInsetAdjustmentBehavior="automatic"
-            style={styles.scrollView}>
-            {/* <Header /> */}
-            {global.HermesInternal == null ? null : (
-              <View style={styles.engine}>
-                <Text style={styles.footer}>Engine: Hermes</Text>
-              </View>
-            )}
-            <TouchableWithoutFeedback onPress={() => Alert.alert('Pressed!')}>
-              <Image
-                style={{height: 80}}
-                source={{
-                  uri:
-                    'https://about.neverthink.tv/assets/img/neverthink-share.png',
-                }}
-              />
-            </TouchableWithoutFeedback>
+      <View style={styles.body}>
+        <ChannelContext.Provider value={this.state}>
+          <StatusBar barStyle="dark-content" />
+          <SafeAreaView>
+            <ScrollView
+              contentInsetAdjustmentBehavior="automatic"
+              style={styles.scrollView}>
+              {/* <Header /> */}
+              {/* {global.HermesInternal == null ? null : (
+                <View style={styles.engine}>
+                  <Text style={styles.footer}>Engine: Hermes</Text>
+                </View>
+              )} */}
 
-            <View style={styles.body}>
-              <VideoPlayer
-                playList={['hY7m5jjJ9mM', 'KVZ-P-ZI6W4', 'Tl0DMTlwLw4']}
-              />
-
-              <Button
-                color="#FF00B4"
-                title="next video"
-                onPress={() => this.playnNextVideo()}
-              />
-              <View style={styles.header}>
-                <Text style={styles.headerTitle}>{this.state.name}</Text>
+              <TouchableWithoutFeedback onPress={() => Alert.alert('Pressed!')}>
                 <Image
-                  style={{width: 40, height: 40}}
+                  style={this.getStyle().imageHeader}
                   source={{
-                    uri: this.state.icon,
+                    uri:
+                      this.state.screen.width < this.state.screen.height
+                        ? 'https://about.neverthink.tv/assets/img/neverthink-share.png'
+                        : 'https://www.reaktor.com/wp-content/uploads/2017/11/neverthink_hero-1.png',
                   }}
                 />
+              </TouchableWithoutFeedback>
+              {/* <View
+                style={this.getStyle().container}
+                onLayout={this.onLayout.bind(this)}>
+                {this.state.screen.width > this.state.screen.height ? (
+                  <Text style={styles.headerTitle}>Landscape</Text>
+                ) : (
+                  <Text style={styles.headerTitle}>Portrait</Text>
+                )}
+              </View> */}
+              <View
+                style={this.getStyle().container}
+                onLayout={this.onLayout.bind(this)}>
+                <View style={this.getStyle().video}>
+                  <ChannelContext.Consumer>
+                    {({index, video, name, playList, icon, changeChannel}) => (
+                      <VideoPlayer playList={playList} />
+                    )}
+                  </ChannelContext.Consumer>
+                </View>
+                <View style={this.getStyle().channelList}>
+                  <Text style={styles.sectionTitle}>Channels</Text>
+                  <ChannelList channels={data} />
+                </View>
               </View>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>Channels</Text>
+
+              <View style={styles.body}>
+                {/* <ChannelContext.Consumer>
+                  {({index, video, name, playList, icon, changeChannel}) => (
+                    <VideoPlayer playList={playList} />
+                  )}
+                </ChannelContext.Consumer>
+
+                <View style={styles.header}>
+                  <Text style={styles.headerTitle}>{this.state.name}</Text>
+                  <Image
+                    style={{width: 40, height: 40}}
+                    source={{
+                      uri: this.state.icon,
+                    }}
+                  />
+                </View>
+                <View style={styles.sectionContainer}>
+                  <Text style={styles.sectionTitle}>Channels</Text>
+                  <ChannelList channels={data} />
+                </View> */}
+
+                {/* <LearnMoreLinks /> */}
               </View>
-              <View style={styles.sectionContainer}>
-                {/* <Text style={styles.sectionDescription}>
-                  Read the docs to discover what to sdf do next: sdf
-                </Text> */}
-              </View>
-              {/* <LearnMoreLinks /> */}
-              <ChannelList channels={data} />
-            </View>
-          </ScrollView>
-        </SafeAreaView>
-      </>
+            </ScrollView>
+          </SafeAreaView>
+        </ChannelContext.Provider>
+      </View>
     );
   }
 }
+const portraitStyles = StyleSheet.create({
+  imageHeader: {
+    height: 80,
+  },
+  container: {
+    paddingTop: 20,
+    backgroundColor: 'red',
+    flexDirection: 'column',
+  },
+});
+
+const landscapeStyles = StyleSheet.create({
+  imageHeader: {
+    height: 30,
+  },
+  container: {
+    paddingTop: 5,
+    paddingHorizontal: 10,
+    backgroundColor: 'blue',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  video: {
+    flex: 2,
+  },
+  channelList: {
+    flex: 1,
+  },
+});
 
 const styles = StyleSheet.create({
   header: {justifyContent: 'center', alignItems: 'center'},
@@ -140,9 +221,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   sectionTitle: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: '600',
     color: Colors.white,
+    textTransform: 'uppercase',
+    borderBottomColor: Colors.white,
+    borderBottomWidth: 1,
+    padding: 10,
   },
   sectionDescription: {
     marginTop: 8,

@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
+import ChannelContext from './ChannelContext';
+
 export default class ChannelList extends Component {
   constructor(props) {
     super(props);
@@ -16,24 +18,30 @@ export default class ChannelList extends Component {
 
   render() {
     return this.props.channels.map(item => (
-      <TouchableHighlight
-        key={item.id}
-        onPress={() => Alert.alert(`${item.name} clicked`)}>
-        <View style={styles.itemRow} k>
-          <Image
-            style={{width: 30, height: 30}}
-            source={{
-              uri: item.icon,
-            }}
-          />
-          <Text style={styles.item}> {item.name}</Text>
-        </View>
-      </TouchableHighlight>
+      <View key={item.id}>
+        <ChannelContext.Consumer>
+          {({index, video, name, playList, icon, changeChannel}) => (
+            <TouchableHighlight onPress={() => changeChannel(item)}>
+              <>
+                <View style={styles.itemRow}>
+                  <Image
+                    style={{width: 30, height: 30}}
+                    source={{
+                      uri: item.icon,
+                    }}
+                  />
+                  <Text style={styles.item}> {item.name}</Text>
+                </View>
+              </>
+            </TouchableHighlight>
+          )}
+        </ChannelContext.Consumer>
+      </View>
     ));
   }
 }
 
 const styles = StyleSheet.create({
-  itemRow: {flexDirection: 'row'},
+  itemRow: {flexDirection: 'row', marginBottom: 10, marginLeft: 10},
   item: {color: Colors.white, fontSize: 30},
 });

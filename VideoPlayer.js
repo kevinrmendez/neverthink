@@ -5,6 +5,7 @@ import youtubeApikey from './apikey.js';
 import {
   View,
   StyleSheet,
+  Button,
   Text,
   Image,
   Alert,
@@ -17,8 +18,7 @@ export default class VideoPlayer extends Component {
     super(props);
     this.state = {
       index: 0,
-      video: 'hY7m5jjJ9mM',
-      playList: this.props.playList,
+      //   video: 'hY7m5jjJ9mM',
     };
     this.playnNextVideo = this.playnNextVideo.bind(this);
     this.child = React.createRef();
@@ -33,7 +33,7 @@ export default class VideoPlayer extends Component {
 
     this.setState({
       index: playListIndex,
-      video: this.state.playList[playListIndex],
+      //   video: this.state.playList[playListIndex],
     });
     // this.child.current.nextVideo();
     // this.child.current.seekTo(20);
@@ -41,30 +41,37 @@ export default class VideoPlayer extends Component {
 
   render() {
     return (
-      <YouTube
-        ref={this.child}
-        showinfo={false}
-        modestbranding={true}
-        // controls={0}
-        videoId={this.state.video}
-        // videoIds={this.state.playListId} // The YouTube video ID
-        play={true} // control playback of video with true/false
-        fullscreen={false} // control whether the video should play in fullscreen or inline
-        // control whether the video should loop when ended
-        apiKey={youtubeApikey}
-        onReady={e => this.setState({isReady: true})}
-        onChangeState={e => {
-          console.log(e.state);
+      <>
+        <YouTube
+          ref={this.child}
+          showinfo={false}
+          modestbranding={true}
+          // controls={0}
+          videoId={this.props.playList[this.state.index]}
+          // videoIds={this.state.playListId} // The YouTube video ID
+          play={true} // control playback of video with true/false
+          fullscreen={false} // control whether the video should play in fullscreen or inline
+          // control whether the video should loop when ended
+          apiKey={youtubeApikey}
+          onReady={e => this.setState({isReady: true})}
+          onChangeState={e => {
+            // console.log(e.state);
 
-          this.setState({status: e.state});
-          if (e.state === 'ended') {
-            this.playnNextVideo();
-          }
-        }}
-        // onChangeQuality={e => this.setState({quality: e.quality})}
-        // onError={e => this.setState({error: e.error})}
-        style={{alignSelf: 'stretch', height: 300}}
-      />
+            this.setState({status: e.state});
+            if (e.state === 'ended') {
+              this.playnNextVideo();
+            }
+          }}
+          // onChangeQuality={e => this.setState({quality: e.quality})}
+          // onError={e => this.setState({error: e.error})}
+          style={{alignSelf: 'stretch', height: 300}}
+        />
+        <Button
+          color="#FF00B4"
+          title="next video"
+          onPress={() => this.playnNextVideo()}
+        />
+      </>
     );
   }
 }

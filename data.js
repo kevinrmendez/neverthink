@@ -20,7 +20,7 @@ export default data = [
     id: 2,
     name: 'LOL',
     icon:
-      'https://cdn4.iconfinder.com/data/icons/emoji-37/512/feeling-Emoji-face-emoticon-emotion-33-512.png',
+      'https://neverthink.tv/assets/images/61d1aeee19fd7cff13a8b17727f1b5a4e9645f16c42ff376a5e5f3ce8a373df2.png',
     playlist: [
       '_Czxy3nya8Y',
       'p8UR4dODogI',
@@ -37,7 +37,13 @@ export default data = [
     id: 3,
     name: 'WTF',
     icon:
-      'https://cdn4.iconfinder.com/data/icons/comic-colored/512/as_1002-512.png',
-    playlist: ['FOH3ZOMBwhY', 'ErfEnD2WA3A', 'JZnlJ2upJv8', 'Km8kIX-8hVs'],
+      'https://neverthink.tv/assets/images/fde01ee47dc02d83892c35c22f2efd81f52c37edc4f3651be40094a115c812fd.png',
+    playlist: ['uydBppstlnk', '2LXr2K5SfeE', 'DUvzl9dA-84', 'YttIKwoifJI'],
+  },
+  {
+    id: 4,
+    name: 'CATZ',
+    icon: 'http://icons.iconarchive.com/icons/sonya/swarm/256/Cat-icon.png',
+    playlist: ['pOmu0LtcI6Y', '3nxSvvEudHE', 'GZXaf6UnFXs', 'YttIKwoifJI'],
   },
 ];
