@@ -43,5 +43,5 @@ export default class ChannelList extends Component {
 
 const styles = StyleSheet.create({
   itemRow: {flexDirection: 'row', marginBottom: 10, marginLeft: 10},
-  item: {color: Colors.white, fontSize: 30},
+  item: {color: Colors.white, fontSize: 20},
 });

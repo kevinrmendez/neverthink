@@ -25,7 +25,7 @@ export default class VideoPlayer extends Component {
   }
   playnNextVideo() {
     var playListIndex = this.state.index;
-    var playList = this.state.playList;
+    var playList = this.props.playList;
     playListIndex++;
     if (playListIndex === playList.length) {
       playListIndex = 0;
@@ -64,7 +64,7 @@ export default class VideoPlayer extends Component {
           }}
           // onChangeQuality={e => this.setState({quality: e.quality})}
           // onError={e => this.setState({error: e.error})}
-          style={{alignSelf: 'stretch', height: 300}}
+          style={{alignSelf: 'stretch', height: this.props.height}}
         />
         <Button
           color="#FF00B4"

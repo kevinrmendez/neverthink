@@ -129,39 +129,29 @@ class App extends Component {
                 <View style={this.getStyle().video}>
                   <ChannelContext.Consumer>
                     {({index, video, name, playList, icon, changeChannel}) => (
-                      <VideoPlayer playList={playList} />
+                      <VideoPlayer
+                        height={this.getOrientation() == 'PORTRAIT' ? 300 : 200}
+                        playList={playList}
+                      />
                     )}
                   </ChannelContext.Consumer>
+                  <View style={this.getStyle().currentChannelInfo}>
+                    <Text style={styles.headerTitle}>{this.state.name}</Text>
+                    <Image
+                      style={{width: 40, height: 40}}
+                      source={{
+                        uri: this.state.icon,
+                      }}
+                    />
+                  </View>
                 </View>
                 <View style={this.getStyle().channelList}>
-                  <Text style={styles.sectionTitle}>Channels</Text>
+                  <Text style={this.getStyle().channelListTitle}>Channels</Text>
                   <ChannelList channels={data} />
                 </View>
               </View>
 
-              <View style={styles.body}>
-                {/* <ChannelContext.Consumer>
-                  {({index, video, name, playList, icon, changeChannel}) => (
-                    <VideoPlayer playList={playList} />
-                  )}
-                </ChannelContext.Consumer>
-
-                <View style={styles.header}>
-                  <Text style={styles.headerTitle}>{this.state.name}</Text>
-                  <Image
-                    style={{width: 40, height: 40}}
-                    source={{
-                      uri: this.state.icon,
-                    }}
-                  />
-                </View>
-                <View style={styles.sectionContainer}>
-                  <Text style={styles.sectionTitle}>Channels</Text>
-                  <ChannelList channels={data} />
-                </View> */}
-
-                {/* <LearnMoreLinks /> */}
-              </View>
+              <View style={styles.body}>{/* <LearnMoreLinks /> */}</View>
             </ScrollView>
           </SafeAreaView>
         </ChannelContext.Provider>
@@ -175,19 +165,30 @@ const portraitStyles = StyleSheet.create({
   },
   container: {
     paddingTop: 20,
-    backgroundColor: 'red',
+    backgroundColor: 'black',
     flexDirection: 'column',
   },
+  channelListTitle: {
+    fontSize: 30,
+    color: 'white',
+    borderBottomWidth: 1,
+    borderBottomColor: 'white',
+    marginBottom: 10,
+  },
+  currentChannelInfo: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
-
 const landscapeStyles = StyleSheet.create({
   imageHeader: {
-    height: 30,
+    height: 15,
   },
   container: {
     paddingTop: 5,
     paddingHorizontal: 10,
-    backgroundColor: 'blue',
+    backgroundColor: 'black',
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
@@ -195,7 +196,20 @@ const landscapeStyles = StyleSheet.create({
     flex: 2,
   },
   channelList: {
-    flex: 1,
+    flex: 0.6,
+  },
+  channelListTitle: {
+    fontSize: 25,
+    color: 'white',
+    borderBottomWidth: 1,
+    borderBottomColor: 'white',
+    marginBottom: 10,
+  },
+
+  currentChannelInfo: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
@@ -214,6 +228,7 @@ const styles = StyleSheet.create({
     right: 0,
   },
   body: {
+    flex: 1,
     backgroundColor: Colors.black,
   },
   sectionContainer: {
