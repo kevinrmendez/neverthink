@@ -257,12 +257,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     padding: 10,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
+
   highlight: {
     fontWeight: '700',
   },
