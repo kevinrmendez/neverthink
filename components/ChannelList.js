@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, StyleSheet, Text, Image, TouchableHighlight} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
-import ChannelContext from '../ChannelContext';
+import ChannelContext from '../context/ChannelContext';
 
 export default class ChannelList extends Component {
   constructor(props) {

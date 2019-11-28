@@ -14,9 +14,9 @@ import {
   TouchableWithoutFeedback,
   TouchableHighlight,
 } from 'react-native';
-import ChannelContext from '../ChannelContext';
+import ChannelContext from '../context/ChannelContext';
 
-export default Banner = props => {
+export default Header = props => {
   return (
     <ChannelContext.Consumer>
       {({screen}) => (

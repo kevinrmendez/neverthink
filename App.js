@@ -24,23 +24,21 @@ import {
 } from 'react-native';
 
 import {
-  Header,
   LearnMoreLinks,
   Colors,
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import ChannelContext from './ChannelContext';
+import ChannelContext from './context/ChannelContext';
 
 import ChannelList from './components/ChannelList';
-import Banner from './components/Banner';
+import Banner from './components/Header';
 import VideoPlayer from './components/VideoPlayer';
 import data from './data/data.js';
 import CurrenChannelInfo from './components/CurrenChannelInfo';
 
-// const store = createStore(channelReducer);
-
+//change data structure
 var dataChanged = data.map(item => ({
   id: item.id,
   name: item.name,
@@ -111,7 +109,7 @@ class App extends Component {
                 </View>
               )} */}
 
-              <Banner style={this.getStyle()} />
+              <Header style={this.getStyle()} />
 
               <View
                 style={this.getStyle().container}
