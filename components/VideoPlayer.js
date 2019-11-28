@@ -10,7 +10,6 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 export default class VideoPlayer extends Component {
   constructor(props) {
@@ -60,11 +59,11 @@ export default class VideoPlayer extends Component {
             this.setState({status: e.state});
             //check if video has ended
             if (e.state === 'ended') {
+              //change status of video to watched
               this.props.playList[this.state.index]['watched'] = true;
               this.playNextVideo();
 
               console.log('VIDEO WATCHED');
-              //change status of video to watched
               console.log(this.props.playList[this.state.index]['watched']);
             }
           }}

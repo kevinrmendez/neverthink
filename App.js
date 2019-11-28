@@ -34,8 +34,10 @@ import {
 import ChannelContext from './ChannelContext';
 
 import ChannelList from './components/ChannelList';
+import Banner from './components/Banner';
 import VideoPlayer from './components/VideoPlayer';
 import data from './data/data.js';
+import CurrenChannelInfo from './components/CurrenChannelInfo';
 
 // const store = createStore(channelReducer);
 
@@ -97,67 +99,33 @@ class App extends Component {
     return (
       <View style={styles.body}>
         <ChannelContext.Provider value={this.state}>
-          <StatusBar
-            // translucent={true}
-            // backgroundColor="transparent"
-            backgroundColor="black"
-            barStyle="light-content"
-          />
+          <StatusBar backgroundColor="black" barStyle="light-content" />
           <SafeAreaView>
             <ScrollView
               contentInsetAdjustmentBehavior="automatic"
-              style={styles.scrollView}>
+              // style={styles.scrollView}
+            >
               {/* {global.HermesInternal == null ? null : (
                 <View style={styles.engine}>
                   <Text style={styles.footer}>Engine: Hermes</Text>
                 </View>
               )} */}
 
-              <TouchableWithoutFeedback onPress={() => Alert.alert('Pressed!')}>
-                <View style={this.getStyle().imageHeader}>
-                  <Image
-                    //set image same size as container
-                    style={{flex: 1, width: undefined, height: undefined}}
-                    source={
-                      this.state.screen.width < this.state.screen.height
-                        ? // ? 'https://about.neverthink.tv/assets/img/neverthink-share.png'
-                          require('./assets/neverthink_banner_portrait.png')
-                        : // : 'https://www.reaktor.com/wp-content/uploads/2017/11/neverthink_hero-1.png',
-                          require('./assets/neverthink_banner_landscape.png')
-                    }
-                  />
-                </View>
-              </TouchableWithoutFeedback>
+              <Banner style={this.getStyle()} />
 
               <View
                 style={this.getStyle().container}
                 onLayout={this.onLayout.bind(this)}>
                 <View style={this.getStyle().video}>
-                  <View style={this.getStyle().currentChannelInfo}>
-                    <Text style={this.getStyle().headerTitle}>
-                      {this.state.name}
-                    </Text>
-                    <Image
-                      style={this.getStyle().icon}
-                      source={{
-                        uri: this.state.icon,
-                      }}
-                    />
-                  </View>
-                  {/* <ChannelContext.Consumer> */}
-                  {/* {({id, playList}) => ( */}
-                  {/* //key atribute required for rendering new  component instance on playlist property changed */}
+                  <CurrenChannelInfo style={this.getStyle()} />
                   <VideoPlayer
                     height={this.getOrientation() == 'PORTRAIT' ? 300 : 240}
                     playList={this.state.playList}
                     key={this.state.id}
                   />
-                  {/* )} */}
-                  {/* </ChannelContext.Consumer> */}
                 </View>
-                <View style={this.getStyle().channelList}>
+                <View style={this.getStyle().channelListContainer}>
                   <Text style={this.getStyle().channelListTitle}>Channels</Text>
-                  {/* <ChannelList channels={data} /> */}
                   <ChannelList channels={dataChanged} />
                 </View>
               </View>
@@ -196,7 +164,6 @@ const portraitStyles = StyleSheet.create({
     width: 40,
   },
   currentChannelInfo: {
-    // backgroundColor: 'red',
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -221,7 +188,7 @@ const landscapeStyles = StyleSheet.create({
   video: {
     flex: 2,
   },
-  channelList: {
+  channelListContainer: {
     flex: 0.6,
   },
   channelListTitle: {
@@ -250,9 +217,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: Colors.white,
   },
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
+  // scrollView: {
+  //   backgroundColor: Colors.lighter,
+  // },
   engine: {
     position: 'absolute',
     right: 0,
@@ -278,10 +245,9 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
   },
-
-  highlight: {
-    fontWeight: '700',
-  },
+  // highlight: {
+  //   fontWeight: '700',
+  // },
 });
 
 export default App;
