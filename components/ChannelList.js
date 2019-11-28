@@ -1,12 +1,5 @@
 import React, {Component} from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  Image,
-  Alert,
-  TouchableHighlight,
-} from 'react-native';
+import {View, StyleSheet, Text, Image, TouchableHighlight} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 import ChannelContext from '../ChannelContext';
@@ -17,28 +10,28 @@ export default class ChannelList extends Component {
   }
 
   render() {
-    return this.props.channels.map(item => (
-      <View key={item.id}>
+    return this.props.channels.map(channel => (
+      <View key={channel.id}>
         <ChannelContext.Consumer>
-          {({index, name, playList, icon, changeChannel}) => (
+          {({changeChannel}) => (
             <TouchableHighlight
               onPress={() => {
-                //order videos
-                item.playlist.sort((a, b) => {
-                  return a === b ? 0 : a ? -1 : 1;
+                //order videos by watched value
+                channel.playlist.sort((a, b) => {
+                  return a.watched === b.watched ? 0 : a.watched ? 1 : -1;
                 });
-                changeChannel(item);
-                console.log(item.name);
+                changeChannel(channel);
+                console.log(channel.name);
               }}>
               <>
-                <View style={styles.itemRow}>
+                <View style={styles.channelRow}>
                   <Image
                     style={{width: 30, height: 30}}
                     source={{
-                      uri: item.icon,
+                      uri: channel.icon,
                     }}
                   />
-                  <Text style={styles.item}> {item.name}</Text>
+                  <Text style={styles.channel}> {channel.name}</Text>
                 </View>
               </>
             </TouchableHighlight>
@@ -50,6 +43,6 @@ export default class ChannelList extends Component {
 }
 
 const styles = StyleSheet.create({
-  itemRow: {flexDirection: 'row', marginBottom: 10, marginLeft: 10},
-  item: {color: Colors.white, fontSize: 20},
+  channelRow: {flexDirection: 'row', marginBottom: 10, marginLeft: 10},
+  channel: {color: Colors.white, fontSize: 20},
 });
