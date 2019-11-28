@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import YouTube from 'react-native-youtube';
 import youtubeApikey from '../apikey.js';
+import ChannelContext from '../context/ChannelContext';
 
 import {
   View,
@@ -44,33 +45,39 @@ export default class VideoPlayer extends Component {
     console.log(`INDEX:${this.state.index}`);
     return (
       <>
-        <YouTube
-          showinfo={false}
-          modestbranding={true}
-          // controls={0}
-          videoId={this.props.playList[this.state.index]['id']}
-          play={true} // control playback of video with true/false
-          fullscreen={false} // control whether the video should play in fullscreen or inline
-          apiKey={youtubeApikey}
-          onReady={e => this.setState({isReady: true})}
-          onChangeState={e => {
-            // console.log(e.state);
+        <ChannelContext.Consumer>
+          {({playList, changeChannel}) => (
+            <YouTube
+              showinfo={false}
+              modestbranding={true}
+              // controls={0}
+              videoId={this.props.playList[this.state.index]['id']}
+              play={true} // control playback of video with true/false
+              fullscreen={false} // control whether the video should play in fullscreen or inline
+              apiKey={youtubeApikey}
+              onReady={e => this.setState({isReady: true})}
+              onChangeState={e => {
+                // console.log(e.state);
 
-            this.setState({status: e.state});
-            //check if video has ended
-            if (e.state === 'ended') {
-              //change status of video to watched
-              this.props.playList[this.state.index]['watched'] = true;
-              this.playNextVideo();
+                this.setState({status: e.state});
+                //check if video has ended
+                if (e.state === 'ended') {
+                  //change status of video to watched
+                  // this.props.playList[this.state.index]['watched'] = true;
+                  playList[this.state.index]['watched'] = true;
+                  this.playNextVideo();
 
-              console.log('VIDEO WATCHED');
-              console.log(this.props.playList[this.state.index]['watched']);
-            }
-          }}
-          // onChangeQuality={e => this.setState({quality: e.quality})}
-          // onError={e => this.setState({error: e.error})}
-          style={{alignSelf: 'stretch', height: this.props.height}}
-        />
+                  console.log('VIDEO WATCHED');
+                  // console.log(this.props.playList[this.state.index]['watched']);
+                  console.log(playList[this.state.index]['watched']);
+                }
+              }}
+              // onChangeQuality={e => this.setState({quality: e.quality})}
+              // onError={e => this.setState({error: e.error})}
+              style={{alignSelf: 'stretch', height: this.props.height}}
+            />
+          )}
+        </ChannelContext.Consumer>
         {/* <View style={styles.buttonIconContainer}>
           <TouchableOpacity
             onPress={() => this.playNextVideo()}
