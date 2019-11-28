@@ -110,25 +110,29 @@ class App extends Component {
               )} */}
 
               <Header style={this.getStyle()} />
-
               <View
                 style={this.getStyle().container}
                 onLayout={this.onLayout.bind(this)}>
-                <View style={this.getStyle().video}>
+                <View style={this.getStyle().videoPlayer}>
                   <CurrenChannelInfo style={this.getStyle()} />
                   <VideoPlayer
-                    height={this.getOrientation() == 'PORTRAIT' ? 300 : 240}
-                    playList={this.state.playList}
+                    // height={this.getOrientation() == 'PORTRAIT' ? 300 : 240}
                     key={this.state.id}
+                    //
+                    style={this.getStyle().youtubeVideoPlayer}
                   />
                 </View>
                 <View style={this.getStyle().channelListContainer}>
-                  <Text style={this.getStyle().channelListTitle}>Channels</Text>
+                  <Text
+                    style={[
+                      styles.channelListTitle,
+                      this.getStyle().channelListTitle,
+                    ]}>
+                    Channels
+                  </Text>
                   <ChannelList channels={dataChanged} />
                 </View>
               </View>
-
-              {/* <View style={styles.body}><LearnMoreLinks /></View> */}
             </ScrollView>
           </SafeAreaView>
         </ChannelContext.Provider>
@@ -142,20 +146,13 @@ const portraitStyles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 30,
-    textAlign: 'center',
-    color: Colors.white,
   },
   container: {
     paddingTop: 10,
-    backgroundColor: 'black',
     flexDirection: 'column',
   },
   channelListTitle: {
     fontSize: 30,
-    color: 'white',
-    borderBottomWidth: 1,
-    borderBottomColor: 'white',
-    marginBottom: 10,
   },
   icon: {
     height: 40,
@@ -166,35 +163,31 @@ const portraitStyles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
+  youtubeVideoPlayer: {
+    height: 300,
+  },
 });
 const landscapeStyles = StyleSheet.create({
   imageHeader: {
     height: 15,
   },
-  headerTitle: {
-    fontSize: 18,
-    textAlign: 'center',
-    color: Colors.white,
-  },
   container: {
     paddingTop: 5,
     paddingHorizontal: 10,
-    backgroundColor: 'black',
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  video: {
+  videoPlayer: {
     flex: 2,
+  },
+  youtubeVideoPlayer: {
+    height: 240,
   },
   channelListContainer: {
     flex: 0.6,
   },
   channelListTitle: {
     fontSize: 25,
-    color: 'white',
-    borderBottomWidth: 1,
-    borderBottomColor: 'white',
-    marginBottom: 10,
   },
   icon: {
     height: 25,
@@ -210,10 +203,17 @@ const landscapeStyles = StyleSheet.create({
 
 const styles = StyleSheet.create({
   header: {justifyContent: 'center', alignItems: 'center'},
+
   headerTitle: {
     fontSize: 30,
     textAlign: 'center',
     color: Colors.white,
+  },
+  channelListTitle: {
+    color: 'white',
+    borderBottomWidth: 1,
+    borderBottomColor: 'white',
+    marginBottom: 10,
   },
   // scrollView: {
   //   backgroundColor: Colors.lighter,
@@ -226,23 +226,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.black,
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 30,
-    fontWeight: '600',
-    color: Colors.white,
-    textTransform: 'uppercase',
-    borderBottomColor: Colors.white,
-    borderBottomWidth: 1,
-    padding: 10,
-  },
-  icon: {
-    height: 40,
-    width: 40,
-  },
+  // sectionContainer: {
+  //   marginTop: 32,
+  //   paddingHorizontal: 24,
+  // },
+  // sectionTitle: {
+  //   fontSize: 30,
+  //   fontWeight: '600',
+  //   color: Colors.white,
+  //   textTransform: 'uppercase',
+  //   borderBottomColor: Colors.white,
+  //   borderBottomWidth: 1,
+  //   padding: 10,
+  // },
+  // icon: {
+  //   height: 40,
+  //   width: 40,
+  // },
   // highlight: {
   //   fontWeight: '700',
   // },
