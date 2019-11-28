@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import YouTube from 'react-native-youtube';
-import youtubeApikey from './apikey.js';
+import youtubeApikey from '../apikey.js';
 
 import {
   View,
@@ -19,14 +19,11 @@ export default class VideoPlayer extends Component {
 
     this.state = {
       index: 0,
-      //   video: 'hY7m5jjJ9mM',
     };
-    this.playnNextVideo = this.playnNextVideo.bind(this);
+    this.playNextVideo = this.playNextVideo.bind(this);
     this.child = React.createRef();
   }
-  componentDidMount() {
-    this.setState({index: 0});
-  }
+
   //recent playlist playing index when playlist changes
   // componentWillReceiveProps(nextProps) {
   //   if (nextProps.playList !== this.props.playList) {
@@ -34,7 +31,7 @@ export default class VideoPlayer extends Component {
   //   }
   // }
 
-  playnNextVideo() {
+  playNextVideo() {
     var playListIndex = this.state.index;
     var playList = this.props.playList;
     playListIndex++;
@@ -70,11 +67,13 @@ export default class VideoPlayer extends Component {
             // console.log(e.state);
 
             this.setState({status: e.state});
+            //check if video has ended
             if (e.state === 'ended') {
               this.props.playList[this.state.index]['watched'] = true;
-              this.playnNextVideo();
+              this.playNextVideo();
 
               console.log('VIDEO WATCHED');
+              //change status of video to watched
               console.log(this.props.playList[this.state.index]['watched']);
             }
           }}
@@ -85,7 +84,7 @@ export default class VideoPlayer extends Component {
         <Button
           color="#FF00B4"
           title="next video"
-          onPress={() => this.playnNextVideo()}
+          onPress={() => this.playNextVideo()}
         />
       </>
     );

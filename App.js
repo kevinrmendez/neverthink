@@ -6,7 +6,6 @@
  * @flow
  */
 
-// import React from 'react';
 import React, {useState, Component} from 'react';
 
 import {
@@ -34,9 +33,9 @@ import {
 
 import ChannelContext from './ChannelContext';
 
-import ChannelList from './ChannelList';
-import VideoPlayer from './VideoPlayer';
-import data from './data.js';
+import ChannelList from './components/ChannelList';
+import VideoPlayer from './components/VideoPlayer';
+import data from './data/data.js';
 
 // const store = createStore(channelReducer);
 
@@ -55,8 +54,7 @@ class App extends Component {
     this.changeChannel = channel => {
       console.log(channel.playlist);
       this.setState({
-        index: channel.index,
-        // video: channel.video
+        id: channel.id,
         name: channel.name,
         playList: channel.playlist,
         icon: channel.icon,
@@ -64,16 +62,11 @@ class App extends Component {
     };
     this.state = {
       index: 0,
-      // video: 'hY7m5jjJ9mM',
+      currentChannelId: dataChanged[0].id,
       screen: Dimensions.get('window'),
-      // name: 'Channel Name 1',
       name: dataChanged[0].name,
-      // playList: ['hY7m5jjJ9mM', 'KVZ-P-ZI6W4', 'Tl0DMTlwLw4'],
       playList: dataChanged[0].playlist,
-      // playList: dataChanged[0]['playList'],
       icon: dataChanged[0].icon,
-      // icon:
-      //   'https://cdn0.iconfinder.com/data/icons/emoticons-round-smileys/137/Emoticons-01-512.png',
       changeChannel: this.changeChannel,
     };
     // console.log(this.state.screen);
@@ -84,7 +77,7 @@ class App extends Component {
     // console.log(this.getStyle());
     this.setState({screen: Dimensions.get('window')});
   }
-
+  //check device orientation
   getOrientation() {
     if (this.state.screen.width > this.state.screen.height) {
       return 'LANDSCAPE';
@@ -92,6 +85,7 @@ class App extends Component {
       return 'PORTRAIT';
     }
   }
+  //return style base on orientation
   getStyle() {
     if (this.getOrientation() === 'LANDSCAPE') {
       return landscapeStyles;
@@ -117,15 +111,18 @@ class App extends Component {
               )} */}
 
               <TouchableWithoutFeedback onPress={() => Alert.alert('Pressed!')}>
-                <Image
-                  style={this.getStyle().imageHeader}
-                  source={{
-                    uri:
+                <View style={this.getStyle().imageHeader}>
+                  <Image
+                    style={{flex: 1, width: undefined, height: undefined}}
+                    source={
                       this.state.screen.width < this.state.screen.height
-                        ? 'https://about.neverthink.tv/assets/img/neverthink-share.png'
-                        : 'https://www.reaktor.com/wp-content/uploads/2017/11/neverthink_hero-1.png',
-                  }}
-                />
+                        ? // ? 'https://about.neverthink.tv/assets/img/neverthink-share.png'
+                          require('./assets/neverthink_banner_portrait.png')
+                        : // : 'https://www.reaktor.com/wp-content/uploads/2017/11/neverthink_hero-1.png',
+                          require('./assets/neverthink_banner_landscape.png')
+                    }
+                  />
+                </View>
               </TouchableWithoutFeedback>
               {/* <View
                 style={this.getStyle().container}
@@ -141,13 +138,12 @@ class App extends Component {
                 onLayout={this.onLayout.bind(this)}>
                 <View style={this.getStyle().video}>
                   <ChannelContext.Consumer>
-                    {({index, video, name, playList, icon, changeChannel}) => (
+                    {({id, playList}) => (
                       //key atribute required for rendering new  component instance on playlist property changed
                       <VideoPlayer
                         height={this.getOrientation() == 'PORTRAIT' ? 300 : 200}
                         playList={playList}
-                        index={0}
-                        key={name}
+                        key={id}
                       />
                     )}
                   </ChannelContext.Consumer>
@@ -269,14 +265,6 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
   },
 });
 

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
-import ChannelContext from './ChannelContext';
+import ChannelContext from '../ChannelContext';
 
 export default class ChannelList extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ export default class ChannelList extends Component {
     return this.props.channels.map(item => (
       <View key={item.id}>
         <ChannelContext.Consumer>
-          {({index, video, name, playList, icon, changeChannel}) => (
+          {({index, name, playList, icon, changeChannel}) => (
             <TouchableHighlight
               onPress={() => {
                 //order videos
