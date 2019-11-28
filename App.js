@@ -1,6 +1,6 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
+ * Neverthink React Native App
+ * https://github.com/kevinrmendez/neverthink/
  *
  * @format
  * @flow
