@@ -7,24 +7,21 @@ import {
   StyleSheet,
   Button,
   Text,
+  TouchableOpacity,
   Image,
-  Alert,
-  TouchableHighlight,
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 export default class VideoPlayer extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       index: 0,
     };
     this.playNextVideo = this.playNextVideo.bind(this);
-    this.child = React.createRef();
   }
 
-  //recent playlist playing index when playlist changes
+  //reset playlist playing index when playlist changes
   // componentWillReceiveProps(nextProps) {
   //   if (nextProps.playList !== this.props.playList) {
   //     this.setState({index: 0});
@@ -32,8 +29,8 @@ export default class VideoPlayer extends Component {
   // }
 
   playNextVideo() {
-    var playListIndex = this.state.index;
-    var playList = this.props.playList;
+    let playListIndex = this.state.index;
+    let playList = this.props.playList;
     playListIndex++;
     if (playListIndex === playList.length) {
       playListIndex = 0;
@@ -41,10 +38,7 @@ export default class VideoPlayer extends Component {
 
     this.setState({
       index: playListIndex,
-      //   video: this.state.playList[playListIndex],
     });
-    // this.child.current.nextVideo();
-    // this.child.current.seekTo(20);
   }
 
   render() {
@@ -52,15 +46,12 @@ export default class VideoPlayer extends Component {
     return (
       <>
         <YouTube
-          ref={this.child}
           showinfo={false}
           modestbranding={true}
           // controls={0}
           videoId={this.props.playList[this.state.index]['id']}
-          // videoIds={this.state.playListId} // The YouTube video ID
           play={true} // control playback of video with true/false
           fullscreen={false} // control whether the video should play in fullscreen or inline
-          // control whether the video should loop when ended
           apiKey={youtubeApikey}
           onReady={e => this.setState({isReady: true})}
           onChangeState={e => {
@@ -81,17 +72,55 @@ export default class VideoPlayer extends Component {
           // onError={e => this.setState({error: e.error})}
           style={{alignSelf: 'stretch', height: this.props.height}}
         />
-        <Button
-          color="#FF00B4"
-          title="next video"
-          onPress={() => this.playNextVideo()}
-        />
+        {/* <View style={styles.buttonIconContainer}>
+          <TouchableOpacity
+            onPress={() => this.playNextVideo()}
+            style={{
+              height: 50,
+              width: 50,
+              borderRadius: 150,
+              marginTop: 10,
+              backgroundColor: '#FF00B4',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'row',
+            }}>
+            <Image
+              style={{
+                width: 30,
+                height: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              source={{
+                uri: 'https://image.flaticon.com/icons/png/512/130/130884.png',
+              }}
+            />
+          </TouchableOpacity>
+        </View> */}
+        <View style={styles.buttonContainer}>
+          <Button
+            color="#FF00B4"
+            title="NEXT"
+            onPress={() => this.playNextVideo()}
+          />
+        </View>
       </>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  itemRow: {flexDirection: 'row'},
-  item: {color: Colors.white, fontSize: 30},
+  buttonContainer: {
+    maxWidth: 300,
+    marginHorizontal: 100,
+    marginVertical: 10,
+  },
+  buttonIconContainer: {
+    maxWidth: 300,
+    marginHorizontal: 100,
+    marginVertical: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

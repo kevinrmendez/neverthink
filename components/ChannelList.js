@@ -20,6 +20,7 @@ export default class ChannelList extends Component {
                 channel.playlist.sort((a, b) => {
                   return a.watched === b.watched ? 0 : a.watched ? 1 : -1;
                 });
+                //change channel (update the state of App)
                 changeChannel(channel);
                 console.log(channel.name);
               }}>
@@ -31,7 +32,7 @@ export default class ChannelList extends Component {
                       uri: channel.icon,
                     }}
                   />
-                  <Text style={styles.channel}> {channel.name}</Text>
+                  <Text style={styles.channelText}> {channel.name}</Text>
                 </View>
               </>
             </TouchableHighlight>
@@ -44,5 +45,5 @@ export default class ChannelList extends Component {
 
 const styles = StyleSheet.create({
   channelRow: {flexDirection: 'row', marginBottom: 10, marginLeft: 10},
-  channel: {color: Colors.white, fontSize: 20},
+  channelText: {color: Colors.white, fontSize: 20},
 });

@@ -61,7 +61,6 @@ class App extends Component {
       });
     };
     this.state = {
-      index: 0,
       currentChannelId: dataChanged[0].id,
       screen: Dimensions.get('window'),
       name: dataChanged[0].name,
@@ -98,12 +97,16 @@ class App extends Component {
     return (
       <View style={styles.body}>
         <ChannelContext.Provider value={this.state}>
-          <StatusBar barStyle="dark-content" />
+          <StatusBar
+            // translucent={true}
+            // backgroundColor="transparent"
+            backgroundColor="black"
+            barStyle="light-content"
+          />
           <SafeAreaView>
             <ScrollView
               contentInsetAdjustmentBehavior="automatic"
               style={styles.scrollView}>
-              {/* <Header /> */}
               {/* {global.HermesInternal == null ? null : (
                 <View style={styles.engine}>
                   <Text style={styles.footer}>Engine: Hermes</Text>
@@ -113,6 +116,7 @@ class App extends Component {
               <TouchableWithoutFeedback onPress={() => Alert.alert('Pressed!')}>
                 <View style={this.getStyle().imageHeader}>
                   <Image
+                    //set image same size as container
                     style={{flex: 1, width: undefined, height: undefined}}
                     source={
                       this.state.screen.width < this.state.screen.height
@@ -124,38 +128,32 @@ class App extends Component {
                   />
                 </View>
               </TouchableWithoutFeedback>
-              {/* <View
-                style={this.getStyle().container}
-                onLayout={this.onLayout.bind(this)}>
-                {this.state.screen.width > this.state.screen.height ? (
-                  <Text style={styles.headerTitle}>Landscape</Text>
-                ) : (
-                  <Text style={styles.headerTitle}>Portrait</Text>
-                )}
-              </View> */}
+
               <View
                 style={this.getStyle().container}
                 onLayout={this.onLayout.bind(this)}>
                 <View style={this.getStyle().video}>
-                  <ChannelContext.Consumer>
-                    {({id, playList}) => (
-                      //key atribute required for rendering new  component instance on playlist property changed
-                      <VideoPlayer
-                        height={this.getOrientation() == 'PORTRAIT' ? 300 : 200}
-                        playList={playList}
-                        key={id}
-                      />
-                    )}
-                  </ChannelContext.Consumer>
                   <View style={this.getStyle().currentChannelInfo}>
-                    <Text style={styles.headerTitle}>{this.state.name}</Text>
+                    <Text style={this.getStyle().headerTitle}>
+                      {this.state.name}
+                    </Text>
                     <Image
-                      style={{width: 40, height: 40}}
+                      style={this.getStyle().icon}
                       source={{
                         uri: this.state.icon,
                       }}
                     />
                   </View>
+                  {/* <ChannelContext.Consumer> */}
+                  {/* {({id, playList}) => ( */}
+                  {/* //key atribute required for rendering new  component instance on playlist property changed */}
+                  <VideoPlayer
+                    height={this.getOrientation() == 'PORTRAIT' ? 300 : 240}
+                    playList={this.state.playList}
+                    key={this.state.id}
+                  />
+                  {/* )} */}
+                  {/* </ChannelContext.Consumer> */}
                 </View>
                 <View style={this.getStyle().channelList}>
                   <Text style={this.getStyle().channelListTitle}>Channels</Text>
@@ -164,7 +162,7 @@ class App extends Component {
                 </View>
               </View>
 
-              <View style={styles.body}>{/* <LearnMoreLinks /> */}</View>
+              {/* <View style={styles.body}><LearnMoreLinks /></View> */}
             </ScrollView>
           </SafeAreaView>
         </ChannelContext.Provider>
@@ -174,10 +172,15 @@ class App extends Component {
 }
 const portraitStyles = StyleSheet.create({
   imageHeader: {
-    height: 80,
+    height: 100,
+  },
+  headerTitle: {
+    fontSize: 30,
+    textAlign: 'center',
+    color: Colors.white,
   },
   container: {
-    paddingTop: 20,
+    paddingTop: 10,
     backgroundColor: 'black',
     flexDirection: 'column',
   },
@@ -188,15 +191,25 @@ const portraitStyles = StyleSheet.create({
     borderBottomColor: 'white',
     marginBottom: 10,
   },
+  icon: {
+    height: 40,
+    width: 40,
+  },
   currentChannelInfo: {
+    // backgroundColor: 'red',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
 });
 const landscapeStyles = StyleSheet.create({
   imageHeader: {
     height: 15,
+  },
+  headerTitle: {
+    fontSize: 18,
+    textAlign: 'center',
+    color: Colors.white,
   },
   container: {
     paddingTop: 5,
@@ -218,7 +231,11 @@ const landscapeStyles = StyleSheet.create({
     borderBottomColor: 'white',
     marginBottom: 10,
   },
-
+  icon: {
+    height: 25,
+    width: 25,
+    marginLeft: 7,
+  },
   currentChannelInfo: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -256,6 +273,10 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.white,
     borderBottomWidth: 1,
     padding: 10,
+  },
+  icon: {
+    height: 40,
+    width: 40,
   },
 
   highlight: {
