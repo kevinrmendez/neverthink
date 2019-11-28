@@ -24,6 +24,15 @@ export default class VideoPlayer extends Component {
     this.playnNextVideo = this.playnNextVideo.bind(this);
     this.child = React.createRef();
   }
+  componentDidMount() {
+    this.setState({index: 0});
+  }
+  //recent playlist playing index when playlist changes
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.playList !== this.props.playList) {
+  //     this.setState({index: 0});
+  //   }
+  // }
 
   playnNextVideo() {
     var playListIndex = this.state.index;
@@ -42,6 +51,7 @@ export default class VideoPlayer extends Component {
   }
 
   render() {
+    console.log(`INDEX:${this.state.index}`);
     return (
       <>
         <YouTube

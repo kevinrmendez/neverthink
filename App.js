@@ -46,6 +46,7 @@ var dataChanged = data.map(item => ({
   icon: item.icon,
   playlist: item.playlist.map(x => ({id: x, watched: false})),
 }));
+
 console.log(dataChanged.map(i => i.playlist.map(j => j.watched)));
 
 class App extends Component {
@@ -141,9 +142,12 @@ class App extends Component {
                 <View style={this.getStyle().video}>
                   <ChannelContext.Consumer>
                     {({index, video, name, playList, icon, changeChannel}) => (
+                      //key atribute required for rendering new  component instance on playlist property changed
                       <VideoPlayer
                         height={this.getOrientation() == 'PORTRAIT' ? 300 : 200}
                         playList={playList}
+                        index={0}
+                        key={name}
                       />
                     )}
                   </ChannelContext.Consumer>

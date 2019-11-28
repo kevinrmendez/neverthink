@@ -28,6 +28,7 @@ export default class ChannelList extends Component {
                   return a === b ? 0 : a ? -1 : 1;
                 });
                 changeChannel(item);
+                console.log(item.name);
               }}>
               <>
                 <View style={styles.itemRow}>

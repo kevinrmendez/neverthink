@@ -44,6 +44,6 @@ export default data = [
     id: 4,
     name: 'CATZ',
     icon: 'http://icons.iconarchive.com/icons/sonya/swarm/256/Cat-icon.png',
-    playlist: ['pOmu0LtcI6Y', '3nxSvvEudHE', 'GZXaf6UnFXs', 'YttIKwoifJI'],
+    playlist: ['pOmu0LtcI6Y', 'ELG12VczO10', 'GZXaf6UnFXs'],
   },
 ];
