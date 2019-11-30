@@ -12,6 +12,8 @@ const portraitStyles = StyleSheet.create({
   },
   channelListTitle: {
     fontSize: 30,
+    marginLeft: 20,
+    marginRight: 20,
   },
   icon: {
     height: 40,

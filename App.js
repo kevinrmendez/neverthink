@@ -6,48 +6,37 @@
  * @flow
  */
 
-import React, {useState, Component} from 'react';
+import React, {Component} from 'react';
 
 import {
   SafeAreaView,
-  StyleSheet,
   ScrollView,
   View,
   Text,
-  Alert,
   StatusBar,
-  Button,
   Dimensions,
-  Image,
-  TouchableWithoutFeedback,
-  TouchableHighlight,
 } from 'react-native';
-
-import {
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
 import ChannelContext from './context/ChannelContext';
 
 import ChannelList from './components/ChannelList';
 import Header from './components/Header';
 import VideoPlayer from './components/VideoPlayer';
-import data from './data/data.js';
 import CurrenChannelInfo from './components/CurrenChannelInfo';
 
+//import styles
 import portraitStyles from './styles/portraitStyles';
 import landscapeStyles from './styles/landscapeStyles';
 import styles from './styles/styles';
 
-//change data structure
-var dataChanged = data.map(item => ({
-  id: item.id,
-  name: item.name,
-  icon: item.icon,
-  playlist: item.playlist.map(x => ({id: x, watched: false})),
+import data from './data/data.js';
+
+//change data structure, make a video object with the property watched
+var dataChanged = data.map(channel => ({
+  id: channel.id,
+  name: channel.name,
+  icon: channel.icon,
+  playlist: channel.playlist.map(video => ({videoId: video, watched: false})),
 }));
 
 console.log(dataChanged.map(i => i.playlist.map(j => j.watched)));
@@ -75,12 +64,10 @@ class App extends Component {
       icon: dataChanged[0].icon,
       changeChannel: this.changeChannel,
     };
-    // console.log(this.state.screen);
   }
+  //onlayout handler called when the orientation of the device changed
   onLayout(e) {
     const {width, height} = Dimensions.get('window');
-    // console.log(width, height);
-    // console.log(this.getStyle());
     this.setState({screen: Dimensions.get('window')});
   }
   //check device orientation
@@ -106,16 +93,7 @@ class App extends Component {
         <ChannelContext.Provider value={this.state}>
           <StatusBar backgroundColor="black" barStyle="light-content" />
           <SafeAreaView>
-            <ScrollView
-              contentInsetAdjustmentBehavior="automatic"
-              // style={styles.scrollView}
-            >
-              {/* {global.HermesInternal == null ? null : (
-                <View style={styles.engine}>
-                  <Text style={styles.footer}>Engine: Hermes</Text>
-                </View>
-              )} */}
-
+            <ScrollView contentInsetAdjustmentBehavior="automatic">
               <Header style={this.getStyle()} />
               <View
                 style={this.getStyle().container}
@@ -123,9 +101,7 @@ class App extends Component {
                 <View style={this.getStyle().videoPlayer}>
                   <CurrenChannelInfo style={this.getStyle()} />
                   <VideoPlayer
-                    // height={this.getOrientation() == 'PORTRAIT' ? 300 : 240}
                     key={this.state.id}
-                    //
                     style={this.getStyle().youtubeVideoPlayer}
                   />
                 </View>

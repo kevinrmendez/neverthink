@@ -1,22 +1,16 @@
 # Neverthink
 
-Here is my solution for neverthink assignment, I used Context to pass the and change
+Here is my solution for neverthink assignment, I used Context to pass and change
 the state of the app in the children components.
-For creating the responsive layout I used
+
+For creating the responsive layout I listened the onLayout event from the view and based of the
+orientation I provide a specific style to the components
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
-
-```bash
-pip install foobar
-```
-
-# Dependencies
-
-```
-react-native-youtube
-```
+Download the app from the repository
+Start and android emultor or connect a device
+Enjoy!
 
 ## Usage
 
@@ -27,8 +21,8 @@ RUN APPLICATION IN ANDROID DEVICE
 npm run android
 ```
 
-## Contributing
+# Dependencies
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
+```
+react-native-youtube
+```

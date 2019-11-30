@@ -1,19 +1,6 @@
-import React, {useState, Component} from 'react';
+import React from 'react';
+import {StyleSheet, View, Text, Image} from 'react-native';
 
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  Alert,
-  StatusBar,
-  Button,
-  Dimensions,
-  Image,
-  TouchableWithoutFeedback,
-  TouchableHighlight,
-} from 'react-native';
 import ChannelContext from '../context/ChannelContext';
 
 export default CurrentChannelInfo = props => {

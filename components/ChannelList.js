@@ -27,7 +27,7 @@ export default class ChannelList extends Component {
               <>
                 <View style={styles.channelRow}>
                   <Image
-                    style={{width: 30, height: 30}}
+                    style={styles.channelIcon}
                     source={{
                       uri: channel.icon,
                     }}
@@ -44,6 +44,12 @@ export default class ChannelList extends Component {
 }
 
 const styles = StyleSheet.create({
-  channelRow: {flexDirection: 'row', marginBottom: 10, marginLeft: 10},
+  channelIcon: {width: 30, height: 30},
+  channelRow: {
+    flexDirection: 'row',
+    marginBottom: 10,
+    marginLeft: 7,
+    paddingVertical: 6,
+  },
   channelText: {color: Colors.white, fontSize: 20},
 });
