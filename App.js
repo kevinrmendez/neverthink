@@ -93,30 +93,33 @@ class App extends Component {
         <ChannelContext.Provider value={this.state}>
           <StatusBar backgroundColor="black" barStyle="light-content" />
           <SafeAreaView>
-            <ScrollView contentInsetAdjustmentBehavior="automatic">
-              <Header style={this.getStyle()} />
-              <View
-                style={this.getStyle().container}
-                onLayout={this.onLayout.bind(this)}>
-                <View style={this.getStyle().videoPlayer}>
-                  <CurrenChannelInfo style={this.getStyle()} />
-                  <VideoPlayer
-                    key={this.state.id}
-                    style={this.getStyle().youtubeVideoPlayer}
-                  />
-                </View>
-                <View style={this.getStyle().channelListContainer}>
-                  <Text
-                    style={[
-                      styles.channelListTitle,
-                      this.getStyle().channelListTitle,
-                    ]}>
-                    Channels
-                  </Text>
-                  <ChannelList channels={dataChanged} />
-                </View>
-              </View>
+            <Header style={this.getStyle()} />
+            {this.state.screen.width < this.state.screen.height ? (
+              <Text
+                style={[
+                  styles.channelListTitle,
+                  this.getStyle().channelListTitle,
+                ]}>
+                Channels
+              </Text>
+            ) : null}
+
+            <ScrollView
+              contentInsetAdjustmentBehavior="automatic"
+              horizontal={true}
+              decelerationRate={0}
+              snapToInterval={200} //your element width
+              snapToAlignment={'center'}>
+              <ChannelList channels={dataChanged} />
             </ScrollView>
+            <View
+              style={this.getStyle().container}
+              onLayout={this.onLayout.bind(this)}>
+              <View style={this.getStyle().videoPlayerContainer}>
+                <VideoPlayer key={this.state.id} style={this.getStyle()} />
+              </View>
+              <CurrenChannelInfo style={this.getStyle()} />
+            </View>
           </SafeAreaView>
         </ChannelContext.Provider>
       </View>

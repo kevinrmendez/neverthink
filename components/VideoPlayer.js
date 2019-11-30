@@ -32,7 +32,7 @@ export default class VideoPlayer extends Component {
   render() {
     console.log(`INDEX:${this.state.index}`);
     return (
-      <>
+      <View style={this.props.VideoPlayer}>
         <ChannelContext.Consumer>
           {({playList}) => (
             <YouTube
@@ -55,7 +55,10 @@ export default class VideoPlayer extends Component {
                 }
               }}
               onError={e => this.setState({error: e.error})}
-              style={[styles.youtubeVideoPlayer, this.props.style]}
+              style={[
+                styles.youtubeVideoPlayer,
+                this.props.style.youtubeVideoPlayer,
+              ]}
             />
           )}
         </ChannelContext.Consumer>
@@ -66,7 +69,7 @@ export default class VideoPlayer extends Component {
             onPress={() => this.playNextVideo()}
           />
         </View>
-      </>
+      </View>
     );
   }
 }

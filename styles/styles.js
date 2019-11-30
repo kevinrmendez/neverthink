@@ -9,9 +9,8 @@ const styles = StyleSheet.create({
   },
   channelListTitle: {
     color: 'white',
-    borderBottomWidth: 1,
-    borderBottomColor: 'white',
-    marginBottom: 10,
+    textAlign: 'center',
+    fontWeight: 'bold',
     textTransform: 'uppercase',
   },
   body: {

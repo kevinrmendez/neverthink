@@ -4,19 +4,22 @@ const portraitStyles = StyleSheet.create({
   headerImage: {
     height: 100,
   },
-  currentChannelName: {
-    fontSize: 30,
+  youtubeVideoPlayer: {
+    height: 300,
   },
   container: {
     paddingTop: 10,
     flexDirection: 'column',
   },
   channelListTitle: {
-    fontSize: 30,
+    fontSize: 15,
     marginLeft: 20,
     marginRight: 20,
   },
-  icon: {
+  currentChannelName: {
+    fontSize: 30,
+  },
+  currentChannelicon: {
     height: 40,
     width: 40,
   },
@@ -24,9 +27,6 @@ const portraitStyles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-  },
-  youtubeVideoPlayer: {
-    height: 300,
   },
 });
 

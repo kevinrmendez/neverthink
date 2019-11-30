@@ -10,26 +10,31 @@ const landscapeStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  videoPlayer: {
-    flex: 2,
+  videoPlayerContainer: {
+    flex: 1,
   },
   youtubeVideoPlayer: {
-    height: 240,
+    height: 180,
   },
-  channelListContainer: {
-    flex: 0.6,
-  },
-  channelListTitle: {
-    fontSize: 25,
-  },
-  icon: {
-    height: 25,
-    width: 25,
-    marginLeft: 7,
-  },
-  currentChannelInfo: {
+  videoPlayer: {
     flexDirection: 'row',
     justifyContent: 'center',
+    backgroundColor: 'red',
+  },
+
+  currentChannelicon: {
+    height: 50,
+    width: 50,
+    marginLeft: 7,
+  },
+  currentChannelName: {
+    fontSize: 30,
+  },
+  currentChannelInfo: {
+    flex: 0.3,
+    marginTop: 40,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
 });

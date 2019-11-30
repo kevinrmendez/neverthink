@@ -46,8 +46,10 @@ export default class ChannelList extends Component {
 const styles = StyleSheet.create({
   channelIcon: {width: 30, height: 30},
   channelRow: {
-    flexDirection: 'row',
-    marginBottom: 10,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 5,
     marginLeft: 7,
     paddingVertical: 6,
   },
