@@ -23,7 +23,6 @@ export default class VideoPlayer extends Component {
     if (playListIndex === playList.length) {
       playListIndex = 0;
     }
-
     this.setState({
       index: playListIndex,
     });
@@ -54,7 +53,6 @@ export default class VideoPlayer extends Component {
                   this.playNextVideo();
 
                   console.log('VIDEO WATCHED');
-
                   console.log(playList[this.state.index]['watched']);
                 }
               }}
