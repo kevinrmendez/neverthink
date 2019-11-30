@@ -7,7 +7,7 @@ export default Header = props => {
   return (
     <ChannelContext.Consumer>
       {({screen}) => (
-        <View style={props.style.imageHeader}>
+        <View style={props.style.headerImage}>
           <Image
             //set Image same size as container
             style={{flex: 1, width: undefined, height: undefined}}

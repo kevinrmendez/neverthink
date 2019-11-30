@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   header: {justifyContent: 'center', alignItems: 'center'},
-  headerTitle: {
+  currentChannelName: {
     fontSize: 30,
     textAlign: 'center',
     color: 'white',
@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textTransform: 'uppercase',
   },
-
   body: {
     flex: 1,
     backgroundColor: 'black',

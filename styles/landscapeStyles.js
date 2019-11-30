@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
+
 const landscapeStyles = StyleSheet.create({
-  imageHeader: {
+  headerImage: {
     height: 15,
   },
   container: {

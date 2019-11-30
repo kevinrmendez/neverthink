@@ -1,9 +1,10 @@
 import {StyleSheet} from 'react-native';
+
 const portraitStyles = StyleSheet.create({
-  imageHeader: {
+  headerImage: {
     height: 100,
   },
-  headerTitle: {
+  currentChannelName: {
     fontSize: 30,
   },
   container: {

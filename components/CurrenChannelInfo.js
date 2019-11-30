@@ -8,7 +8,8 @@ export default CurrentChannelInfo = props => {
     <ChannelContext.Consumer>
       {({icon, name}) => (
         <View style={props.style.currentChannelInfo}>
-          <Text style={[styles.headerTitle, props.style.headerTitle]}>
+          <Text
+            style={[styles.currentChannelName, props.style.currentChannelName]}>
             {name}
           </Text>
           <Image
@@ -24,7 +25,7 @@ export default CurrentChannelInfo = props => {
 };
 
 const styles = StyleSheet.create({
-  headerTitle: {
+  currentChannelName: {
     textAlign: 'center',
     color: 'white',
   },
