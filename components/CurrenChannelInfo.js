@@ -13,7 +13,7 @@ export default CurrentChannelInfo = props => {
             {name}
           </Text>
           <Image
-            style={props.style.icon}
+            style={props.style.currentChannelIcon}
             source={{
               uri: icon,
             }}

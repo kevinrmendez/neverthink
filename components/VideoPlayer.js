@@ -30,7 +30,7 @@ export default class VideoPlayer extends Component {
   }
 
   render() {
-    console.log(`INDEX:${this.state.index}`);
+    // console.log(`INDEX:${this.state.index}`);
     return (
       <>
         <ChannelContext.Consumer>

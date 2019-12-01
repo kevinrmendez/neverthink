@@ -22,7 +22,7 @@ const landscapeStyles = StyleSheet.create({
   channelListTitle: {
     fontSize: 25,
   },
-  icon: {
+  currentChannelIcon: {
     height: 25,
     width: 25,
     marginLeft: 7,

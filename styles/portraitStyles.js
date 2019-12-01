@@ -4,9 +4,6 @@ const portraitStyles = StyleSheet.create({
   headerImage: {
     height: 100,
   },
-  currentChannelName: {
-    fontSize: 30,
-  },
   container: {
     paddingTop: 10,
     flexDirection: 'column',
@@ -16,9 +13,12 @@ const portraitStyles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
   },
-  icon: {
+  currentChannelIcon: {
     height: 40,
     width: 40,
+  },
+  currentChannelName: {
+    fontSize: 30,
   },
   currentChannelInfo: {
     flexDirection: 'column',
